@@ -1,0 +1,101 @@
+version: "3"
+
+services:
+
+    nombreServicio1:
+        image: <nomreServicio1>
+        ports:
+            - "8080:8080"
+        networks:
+            - taller_Servicios_Union
+        depends_on:
+            - mongodb
+
+    BBDD1:
+        image: mongo
+        restart: always
+        networks:
+            - taller_Servicios_Union
+        environment:
+            MONGO_INITDB_DATABASE: ss1
+        ports:
+            - 27017:27017
+        volumes:
+            - db_data:/var/lib/mongo
+
+    nombreServicio2:
+        image: <nombreServicio1>
+        container_name: nombreServicio1
+        ports:
+            - 8081:8080
+        networks:
+            - taller_Servicios_Union
+        links:
+            - mysql
+
+    bbdd2:
+        image: <nombreServicio1>
+        container_name: vehiculos_persistencia
+        environment:
+            MYSQL_DATABASE: practica_aos
+            MYSQL_ROOT_PASSWORD: 1234
+        ports:
+            - "3306:3306"
+        networks:
+            - taller_Servicios_Union
+
+    nombreServicio3:
+        image: <nombreServicio3>
+        container_name: api_trabajos
+        ports:
+            - 8082:8080
+        networks:
+            - taller_Servicios_Union
+
+    nombreServicio4:
+        image: <nombreServicio4>
+        container_name: api_notificaciones
+        ports:
+            - 8083:8080
+        networks:
+            - taller_Servicios_Union
+        links:
+            - notificaciones_4-mysql
+
+    notificaciones_4-mysql:
+        image: mysql:8
+        container_name: notificaciones_persistencia
+        networks:
+            - taller_Servicios_Union
+        environment:
+            - MYSQL_ROOT_PASSWORD=qwerty
+            - MYSQL_DATABASE=aos4
+            - MYSQL_USER=qwerty
+            - MYSQL_PASSWORD=qwerty
+        volumes:
+            - db_data:/var/lib/mysql
+            - ./dbdump:/docker-entrypoint-initdb.d
+
+    nombreServicio5:
+        image: <nombreServicio5>
+        container_name: api_facturas
+        ports:
+            - 8084:8080
+        networks:
+            - taller_Servicios_Union
+
+    nombreServicio6:
+        image: <nombreServicio6>
+        container_name: api_recambios
+        ports:
+            - 8085:8080
+        networks:
+            - taller_Servicios_Union
+
+networks:
+    taller_Servicios_Union:
+
+volumes:
+    db_data:
+
+
