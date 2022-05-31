@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 # LABEL para la imagen
 LABEL maintainer="sergio.arroyoram@alumnos.upm.es","a.seijo@alumnos.upm.es","victor.martin.diaz@alumnos.upm.es","manuel.gfrino@alumnos.upm.es","franciscoandres.ferreyra@alumnos.upm.es"
-LABEL version="1.0"
+LABEL version="latest"
 LABEL description="Imagen del servicio de Gestion de Vehiculos"
 # Actualizacion del repositorio de Ubuntu
 RUN apt update
