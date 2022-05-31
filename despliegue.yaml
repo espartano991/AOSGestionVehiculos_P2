@@ -1,0 +1,336 @@
+
+
+
+#DEPLOYMENTS TALLER RECORDAR CAMBIAR PUERTOS, NOMBRES, IMAGENES DE LAS QUE PILLAR, Y POSIBLEMENTE RECURSOS
+
+#Clientes
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientes-1
+spec:
+  selector:
+    matchLabels:
+      app: clientes-1
+      role: clientes
+      tier: frontend 
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: clientes-1
+        role: clientes
+        tier: frontend
+    spec:
+      containers:
+        - name: clientes-1
+          image: zcj583/ss1-onlyflask
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "700Mi"
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+
+---
+
+#Vehiculos
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehiculos-2
+spec:
+  selector:
+    matchLabels:
+      app: vehiculos-2
+      role: vehiculos
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vehiculos-2
+        role: vehiculos
+        tier: frontend
+    spec:
+      containers:
+        - name: vehiculos-2
+          image: mguindel/aos_subsistema2:2.5
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "700Mi"
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+
+
+---
+#TRABAJOS
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trabajos-3
+spec:
+  selector:
+    matchLabels:
+      app: trabajos-3
+      role: trabajos
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: trabajos-3
+        role: trabajos
+        tier: frontend
+    spec:
+      containers:
+        - name: trabajos-3
+          image: migue9b/trabajos:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "700Mi"
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+
+---
+
+#NOTIFICACIONES
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notificaciones-4
+spec:
+  selector:
+    matchLabels:
+      app: notificaciones-4
+      role: notificaciones
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: notificaciones-4
+        role: notificaciones
+        tier: frontend
+    spec:
+      containers:
+        - name: notificaciones-4
+          image: jvidalc/aos_subsistema4_notificaciones:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "700Mi"
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+
+---
+
+#FACTURAS
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: facturas-5
+spec:
+  selector:
+    matchLabels:
+      app: facturas-5
+      role: facturas
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: facturas-5
+        role: facturas
+        tier: frontend
+    spec:
+      containers:
+        - name: facturas-5
+          image: rugana90/aos-ss5:0.5
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "700Mi"
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+
+---
+
+#RECAMBIOS
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recambios-6
+spec:
+  selector:
+    matchLabels:
+      app: recambios-6
+      role: recambios
+      tier: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: recambios-6
+        role: recambios
+        tier: frontend
+    spec:
+      containers:
+        - name: recambios-6
+          image: clatange/aos:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "1"
+              memory: "700Mi"
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 8080
+
+
+---
+
+#SERVICES
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: clientes-1
+  labels:
+    app: clientes-1
+    role: clientes
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: clientes-1
+    role: clientes
+    tier: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vehiculos-2
+  labels:
+    app: vehiculos-2
+    role: vehiculos
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8081
+      targetPort: 8080
+  selector:
+    app: vehiculos-2
+    role: vehiculos
+    tier: frontend
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: trabajos-3
+  labels:
+    app: trabajos-3
+    role: trabajos
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8082
+      targetPort: 8080
+  selector:
+    app: trabajos-3
+    role: trabajos
+    tier: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notificaciones-4
+  labels:
+    app: notificaciones-4
+    role: notificaciones
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8083
+      targetPort: 8080
+  selector:
+    app: notificaciones-4
+    role: notificaciones
+    tier: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: facturas-5
+  labels:
+    app: facturas-5
+    role: facturas
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8084
+      targetPort: 8080
+  selector:
+    app: facturas-5
+    role: facturas
+    tier: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: recambios-6
+  labels:
+    app: recambios-6
+    role: recambios
+    tier: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8085
+      targetPort: 8080
+  selector:
+    app: recambios-6
+    role: recambios
+    tier: frontend
