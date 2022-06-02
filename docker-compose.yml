@@ -17,7 +17,7 @@ services:
         networks:
             - taller_Servicios_Union
         depends_on:
-            - mongodb
+            - BBDD_gestion_vehiculos_2
     BBDD_gestion_vehiculos_2:
         image: mongo
         restart: always
