@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: clientes_1
+  name: clientes1
 spec:
   selector:
     matchLabels:
-      app: clientes_1
+      app: clientes1
       role: clientes
       tier: frontend 
   replicas: 1 
   template:
     metadata:
       labels:
-        app: clientes_1
+        app: clientes1
         role: clientes
         tier: frontend
     spec:
       containers:
-        - name: clientes_1
+        - name: clientes1
           image: albertoseijo/aos_grupo4_global:aos_servicioclientes
           imagePullPolicy: Always
           resources:
@@ -37,23 +37,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vehiculos_2
+  name: vehiculos2
 spec:
   selector:
     matchLabels:
-      app: vehiculos_2
+      app: vehiculos2
       role: vehiculos
       tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: vehiculos_2
+        app: vehiculos2
         role: vehiculos
         tier: frontend
     spec:
       containers:
-        - name: vehiculos_2
+        - name: vehiculos2
           image: albertoseijo/aos_grupo4_global:serviciovehiculos
           imagePullPolicy: Always
           resources:
@@ -72,23 +72,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trabajos_3
+  name: trabajos3
 spec:
   selector:
     matchLabels:
-      app: trabajos_3
+      app: trabajos3
       role: trabajos
       tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: trabajos_3
+        app: trabajos3
         role: trabajos
         tier: frontend
     spec:
       containers:
-        - name: trabajos_3
+        - name: trabajos3
           image: albertoseijo/aos_grupo4_global:aos_serviciotrabajos
           imagePullPolicy: Always
           resources:
@@ -107,23 +107,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: notificaciones_4
+  name: notificaciones4
 spec:
   selector:
     matchLabels:
-      app: notificaciones_4
+      app: notificaciones4
       role: notificaciones
       tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: notificaciones_4
+        app: notificaciones4
         role: notificaciones
         tier: frontend
     spec:
       containers:
-        - name: notificaciones_4
+        - name: notificaciones4
           image: albertoseijo/aos_grupo4_global:aos_servicionotificaciones
           imagePullPolicy: Always
           resources:
@@ -142,23 +142,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: facturas_5
+  name: facturas5
 spec:
   selector:
     matchLabels:
-      app: facturas_5
+      app: facturas5
       role: facturas
       tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: facturas_5
+        app: facturas5
         role: facturas
         tier: frontend
     spec:
       containers:
-        - name: facturas_5
+        - name: facturas5
           image: albertoseijo/aos_grupo4_global:aos_serviciofacturas
           imagePullPolicy: Always
           resources:
@@ -177,23 +177,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recambios_6
+  name: recambios6
 spec:
   selector:
     matchLabels:
-      app: recambios_6
+      app: recambios6
       role: recambios
       tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: recambios_6
+        app: recambios6
         role: recambios
         tier: frontend
     spec:
       containers:
-        - name: recambios_6
+        - name: recambios6
           image: albertoseijo/aos_grupo4_global:aos_serviciorecambios
           imagePullPolicy: Always
           resources:
@@ -212,23 +212,23 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: logs_7
+  name: logs7
 spec:
   selector:
     matchLabels:
-      app: logs_7
+      app: logs7
       role: logs
       tier: frontend
   replicas: 1
   template:
     metadata:
       labels:
-        app: logs_7
+        app: logs7
         role: logs
         tier: frontend
     spec:
       containers:
-        - name: logs_7
+        - name: logs7
           image: albertoseijo/aos_grupo4_global:aos_serviciologs
           imagePullPolicy: Always
           resources:
@@ -249,9 +249,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: clientes_1
+  name: clientes1
   labels:
-    app: clientes_1
+    app: clientes1
     role: clientes
     tier: frontend
 spec:
@@ -260,7 +260,7 @@ spec:
     - port: 8081
       targetPort: 8080
   selector:
-    app: clientes_1
+    app: clientes1
     role: clientes
     tier: frontend
 
@@ -269,9 +269,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: vehiculos_2
+  name: vehiculos2
   labels:
-    app: vehiculos_2
+    app: vehiculos2
     role: vehiculos
     tier: frontend
 spec:
@@ -280,7 +280,7 @@ spec:
     - port: 8080
       targetPort: 8080
   selector:
-    app: vehiculos_2
+    app: vehiculos2
     role: vehiculos
     tier: frontend
 
@@ -290,9 +290,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: trabajos_3
+  name: trabajos3
   labels:
-    app: trabajos_3
+    app: trabajos3
     role: trabajos
     tier: frontend
 spec:
@@ -301,7 +301,7 @@ spec:
     - port: 8083
       targetPort: 8080
   selector:
-    app: trabajos_3
+    app: trabajos3
     role: trabajos
     tier: frontend
 
@@ -310,9 +310,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: notificaciones_4
+  name: notificaciones4
   labels:
-    app: notificaciones_4
+    app: notificaciones4
     role: notificaciones
     tier: frontend
 spec:
@@ -321,7 +321,7 @@ spec:
     - port: 8084
       targetPort: 8080
   selector:
-    app: notificaciones_4
+    app: notificaciones4
     role: notificaciones
     tier: frontend
 
@@ -330,9 +330,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: facturas_5
+  name: facturas5
   labels:
-    app: facturas_5
+    app: facturas5
     role: facturas
     tier: frontend
 spec:
@@ -341,7 +341,7 @@ spec:
     - port: 8085
       targetPort: 8080
   selector:
-    app: facturas_5
+    app: facturas5
     role: facturas
     tier: frontend
 
@@ -350,9 +350,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: recambios_6
+  name: recambios6
   labels:
-    app: recambios_6
+    app: recambios6
     role: recambios
     tier: frontend
 spec:
@@ -361,7 +361,7 @@ spec:
     - port: 8086
       targetPort: 8080
   selector:
-    app: recambios_6
+    app: recambios6
     role: recambios
     tier: frontend
 
@@ -370,9 +370,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: logs_7
+  name: logs7
   labels:
-    app: logs_7
+    app: logs7
     role: recambios
     tier: frontend
 spec:
@@ -381,6 +381,6 @@ spec:
     - port: 8087
       targetPort: 8080
   selector:
-    app: logs_7
+    app: logs7
     role: logs
     tier: frontend

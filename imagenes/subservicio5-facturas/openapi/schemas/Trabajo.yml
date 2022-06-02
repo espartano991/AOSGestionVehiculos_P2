@@ -1,0 +1,39 @@
+# Trabajo:
+      type: object
+      description: Trabajos pertenecientes a la factura
+      properties:
+        trabajoId:
+          description: Identificador del trabajo
+          type: integer
+          format: int32
+        idVehiculo:
+          description: Identificador del vehículo
+          type: integer
+          format: int32
+        idCliente:
+          description: Identificador del cliente
+          type: integer
+          format: int32
+        nombre:
+          description: Nombre del tipo de trabajo
+          type: string
+        descripcion:
+          description: Descripción del trabajo
+          type: string
+        estadoTrabajo:
+          description: Trabajos finalizados para facturación
+          type: string
+          enum:
+          - "Terminado"    
+        fechaInicio:
+          description: Fecha inicio
+          type: string
+          format: date-time
+        fechaFin:
+          description: Fecha fin 
+          type: string
+          format: date-time
+        importe:
+          description: Importe
+          type: number
+          format: double

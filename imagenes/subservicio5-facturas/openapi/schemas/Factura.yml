@@ -1,0 +1,36 @@
+# Factura:
+      type: object
+      description: Contenido de una factura
+      properties:
+        facturaId:
+          description: Identificador de la factura
+          readOnly: True
+          type: integer
+          format: int32
+        idCliente:
+          description: Identificador del cliente a facturar
+          type: integer
+          format: int32
+        Conceptos:
+          description: Trabajos pertenecientes a la factura
+          type: array
+          items:
+            $ref: './Trabajo.yml'
+        fechaEmision:
+          description: Fecha de emisión de la factura
+          type: string
+          format: date-time
+        importe:
+          description: Importe total de la factura. Suma de todos los importes.
+          type: number
+          format: double
+        links:
+          description: Enlaces de relación
+          type: object
+          properties:
+            clientes:
+              $ref: './Link.yml#/Link' 
+            trabajos:
+              $ref: './Link.yml#/Link' 
+            self:
+              $ref: './Link.yml#/Link'    
