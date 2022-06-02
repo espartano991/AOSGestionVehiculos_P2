@@ -21,7 +21,10 @@ Para descargar: `docker pull albertoseijo/aos_grupo4_global:serviciovehiculos`
 
 modificar de aqui paraa abajo
 ### **_Docker compose_**
-Tras el análisis del resto de servicios se concluyen las siguientes decisiones de diseño de cara al despliegue con `docker-compose`. Debido a que ningun grupo ha especificado el lugar donde se ha subido la imagen en docker hub, hemos subido todas las imagenes de cada grupo a nuestro repositorio de docker hub, cambiando las imagenes por el tag, para que todas estén en el mismo repositorio de docker-hub 
+Tras el análisis del resto de servicios se concluyen las siguientes decisiones de diseño de cara al despliegue con `docker-compose`. Debido a que ningun grupo ha especificado el lugar donde se ha subido la imagen en docker hub, hemos subido todas las imagenes de cada grupo a nuestro repositorio de docker hub, cambiando las imagenes por el tag, para que todas estén en el mismo repositorio de docker-hub.
+Todas las imagenes pueden verse en el siguiente link:
+`https://hub.docker.com/r/albertoseijo/aos_grupo4/tags`
+
 
 - **Servicio 1** (clientes): API para los clientes. No observamos que la API esté implementada ni que tenga una BBDD, por lo que no vemos necesario levantar un contenedor. 
 - **Servicio 2** (vehículos): API para los vehiculos. Levantamos un servicio en la imagen para la BBDD de mongo.Imagen realizada por nosotros.(que no necesita persistencia adicional con contenedor porque ya la lleva incorporada la imagen) 
