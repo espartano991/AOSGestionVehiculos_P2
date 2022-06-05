@@ -25,6 +25,8 @@ Tras el análisis del resto de servicios se concluyen las siguientes decisiones 
 Todas las imagenes pueden verse en el siguiente link:
 `https://hub.docker.com/r/albertoseijo/aos_grupo4/tags`
 
+Para igualar los puertos endpoints de cada imagen, lo que hemos hecho es modificar los mismos en las imagenes subidas al dockerhub a 808X, y luego en el docker-compose lo redireccionamos todo al puerto 8080.
+Por otra parte, debido a que no tenemos implementada nuestra imagen (vehñiculos) hemos añadido la pseudoimplementacion con swagger. por lo que hemos añadido el backend y frontend de lo mismo direccionándolo al puerto 8000.
 
 - **Servicio 1** (clientes): API para los clientes. No observamos que la API esté implementada ni que tenga una BBDD, por lo que no vemos necesario levantar un contenedor. 
 - **Servicio 2** (vehículos): API para los vehiculos. Levantamos un servicio en la imagen para la BBDD de mongo.Imagen realizada por nosotros.(que no necesita persistencia adicional con contenedor porque ya la lleva incorporada la imagen) 
@@ -44,7 +46,7 @@ Esta implementación es parecida a la de docker compose.
 Para Kubernetes se realiza un despliegue por cada servicio. Es decir, 7 despliegues con objetos de tipo `deployment`. Además, se añaden las plantillas para la especificación de los `service` que permiten la conexión a los `pods` desde el exterior. Los puertos que se exponen siguen el mismo esquema que docker-compose.
 
 Para desplegar correctamente los servicios es necesario seguir los siguientes pasos:
-1. Para desplegar el clúster en kubernetes hay que ejecutar el comando  `kubectl apply -f kubernetes-deployment.yaml` 
+1. Para desplegar el clúster en kubernetes hay que ejecutar el comando  `kubectl apply -f despliegue.yaml` 
 2. Posteriormente para deplegar algún servicio, hay que ejecutar el comando `minikube service nombreServicio --url`. Esto generará la url del servicio a desplegar.
 3. Abrir el navegador e introducir `localhost:puertoObtenido/ruta`.
   
