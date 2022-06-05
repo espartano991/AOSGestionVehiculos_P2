@@ -1,0 +1,490 @@
+openapi: 3.0.2
+info:
+  title: Practica AOS gestión de vehículos subsistema_2
+  version: '1.0'
+  description: >-
+    Práctica realizada por el grupo 4 realizando el subservicio de gestión de
+    coches en el taller
+  license:
+    name: Grupo 4. Arquitectura Orienta a Servicios (AOS).
+    url: https://github.com/espartano991/AOSgestionvehiculos
+  contact:
+    name: Contacto AOS.
+    url: https://moodle.upm.es/titulaciones/oficiales/mod/assign/view.php?id=52029
+    email: sergio.arroyoram@alumnos.upm.com
+
+servers:
+  - url: '{schemas}://{server}:{port}/{basePath}'
+    description: Servidor
+    variables: 
+      schemas: 
+        description: Esquema
+        default: http
+        enum: 
+          - http
+          - https
+      server:
+        description: Dirección IP del servidor
+        default: 127.0.0.1
+      port:
+        description: puerto
+        default: '80'
+      basePath:
+        description: Ruta base 
+        default: api/v1
+
+
+paths:
+  /vehiculo:
+    summary: Obtenemos el listado de todos los vehículos en el sistema.
+    get:
+      tags:
+        - vehiculo
+      parameters:
+        - $ref: '#/components/parameters/OrdenacionVehiculo'
+        - $ref: '#/components/parameters/direccionOrden'
+      responses:
+        200:
+          $ref: '#/components/responses/Response_200'
+        400:
+          $ref: '#/components/responses/Response_400'
+        404:
+          $ref: '#/components/responses/Response_404'
+        502:
+          $ref: '#/components/responses/Response_502'
+      operationId: vehiculos_get
+      summary: Obtenemos el listado de todos los vehículos
+      description: |-
+        Las posibles respuestas a esta operación son:
+        | Código error | Descripción | Motivo |
+        | -------- | -------- | -------- |
+        | *200*     |  OK     | Hay vehiculos     |
+        | *400*     |  BAD REQUEST     | Sintaxis incorrecta     |
+        | *404*     |  NOT FOUND     | No hay vehiculos     |
+        | *502*     |  INTERNAL SERVER ERROR     | Error en el servidor     |
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/VehiculoCreacion'
+      tags:
+        - vehiculo
+      responses:
+        201:
+          headers:
+            Location:
+              $ref: '#/components/headers/Location'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vehiculo'
+          description: El recurso ha sido creado
+        400:
+          $ref: '#/components/responses/Response_400'
+        422:
+          $ref: '#/components/responses/Response_422'
+        502:
+          $ref: '#/components/responses/Response_502'
+      operationId: vehiculos_post
+      summary: Creación de un registro de un vehículo
+      description: Método para crear un recurso de tipo vehículo
+    options:
+      tags:
+        - vehiculo
+      responses:
+        204:
+          $ref: '#/components/responses/Response_204'
+      operationId: operation_Vehiculo
+      summary: Listado de métodos HTTP soportados
+      description: >
+        Listado de todos los métodos soportados. Estos métodos están listados en
+        la cabecera "Allow".
+    put:
+      parameters:
+        - $ref: '#/components/parameters/ifMatchParam'
+      requestBody:
+        $ref: '#/components/requestBodies/vehiculoUpdate'
+      tags:
+        - vehiculo
+      responses:
+        200:
+          $ref: '#/components/responses/Response_200'
+        400:
+          $ref: '#/components/responses/Response_400'
+        404:
+          $ref: '#/components/responses/Response_404'
+        412:
+          $ref: '#/components/responses/Response_412'
+      operationId: vehiculos_put
+      summary: Actualización de datos de vehículos según su VIN
+      description: |-
+        Modificación de los parámetros de un vehículo, identificado por su VIN
+        Las posibles respuestas a esta operación son: 
+        | Código error | Descripción | Motivo                            | 
+        | ------------ | ----------- | -------------------------------   | 
+        |    *200*     |      OK     | Operación realizada con éxito     | 
+        |    *400*     | BAD REQUEST | Sintaxis incorrecta               | 
+        |    *404*     |  NOT FOUND  | Vehículo no encontrado            |
+        |    *412*     |  Precondition Failed  | HTTP header no coincide con la enviada       |      
+  /vehiculo/{VIN}:
+    summary: Operaciones sobre vehículos individuales según su VIN
+    delete:
+      tags:
+        - vehiculo
+      responses:
+        204:
+          $ref: '#/components/responses/Response_204'
+        404:
+          $ref: '#/components/responses/Response_404'
+      operationId: vehiculos_delete
+      summary: Eliminación de vehículo según su identificador VIN.
+      description: |-
+        Eliminación de un vehículo, identificado a partir de su VIN. Las
+        posibles respuestas a esta operación son: 
+        | Código error | Descripción | Motivo                                      | 
+        | ------------ | ----------- | ------------------------------------------- | 
+        | *204*        |  NO CONTENT | Eliminación de vehículo realizada con éxito | 
+        | *404*        |  NOT FOUND  | Vehículo no encontrado                      |
+    parameters:
+      - $ref: '#/components/parameters/VIN'
+    get:
+      tags: 
+       - vehiculo
+      operationId: vehiculo_get
+      summary: Obtención de un vehículo por VIN
+      description: |-
+        Las posibles respuestas a esta operación son:
+        | Código error | Descripción                | Motivo               |
+        | -----------  | -------------------------  | -------------------- |
+        | *200*        |  OK                        | Hay vehiculos        |
+        | *400*        |  BAD REQUEST               | Sintaxis incorrecta  |
+        | *404*        |  NOT FOUND                 | No hay vehiculos     |
+        | *502*        |  INTERNAL SERVER ERROR     | Error en el servidor |
+      responses:
+        200:
+          $ref: '#/components/responses/Response_200'
+        400:
+          $ref: '#/components/responses/Response_400'
+        404:
+          $ref: '#/components/responses/Response_404'
+        502:
+          $ref: '#/components/responses/Response_502'
+      parameters:
+        - $ref: '#/components/parameters/VIN'
+components:
+  schemas:
+    Link:
+      $ref: './schemas/Link.yaml'
+    vehiculo:
+      $ref: './schemas/vehiculo.yaml'
+    HTTP_Problem:
+      $ref: './schemas/HTTP_Problem.yaml'
+
+  responses:
+    Response_200:
+      headers:
+        ETag:
+          $ref: '#/components/headers/ETag'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              vehiculos:
+                description: Listado de vehiculos
+                type: array
+                items:
+                  $ref: '#/components/schemas/vehiculo'
+              links:
+                description: Enlaces de paginación
+                type: object
+                properties:
+                  listadoVehiculos:
+                    $ref: '#/components/schemas/Link'
+                  nextPage:
+                    $ref: '#/components/schemas/Link'
+                readOnly: true
+      description: '`OK`: el objeto ha sido modificado'
+
+    Response_204:
+      headers:
+        Allow:
+          $ref: '#/components/headers/Allow'
+      description: |-
+        La operación se ha realizado correctamente.
+        **No se devuelve cuerpo**
+    Response_400:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-400:
+              $ref: '#/components/examples/response-http-400'
+      description: '`Bad Request`: el recurso no se encuentra disponible'
+    Response_404:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-404:
+              $ref: '#/components/examples/response-http-404'
+      description: '`NOT FOUND`: el recurso no se encuentra disponible'
+    Response_408:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-408:
+              $ref: '#/components/examples/response-http-408'
+      description: '`REQUEST_TIMEOUT`: se ha perdido la conexión con el recurso'
+    Response_412:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-412:
+              $ref: '#/components/examples/response-http-412'
+      description: 'Precondition Failed: HTTP header no coincide con la enviada'      
+    Response_422:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-422:
+              $ref: '#/components/examples/response-http-422'
+      description: 'Unprocessable Entity: validación de parámetros fallida'
+    Response_502:
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/HTTP_Problem'
+          examples:
+            response-http-408:
+              $ref: '#/components/examples/response-http-502'
+      description: '`INTERNAL SERVER ERROR`: Ha ocurrido un error en el servidor'
+      
+  parameters:
+    ifMatchParam:
+      name: If-Match
+      in: header
+      description: ETag del vehiculo que se desea modificar
+      required: true
+      schema:
+        type: string
+        pattern: "[0-9a-f]*"
+    VIN:
+      name: VIN
+      description: Identificador de vehículo
+      schema:
+        type: string
+      in: path
+      required: true
+    OrdenacionVehiculo:
+      deprecated: false
+      name: Ordenación
+      description: Ordenación del listado de los vehículos
+      schema:
+        description: |-
+          Ordenación de la respuesta por los siguientes parámetros:
+          * VIN
+          * anno
+          * reparacionUltima
+          * clienteID
+        enum:
+          - VIN
+          - anno
+          - reparacionUltima
+          - clienteID
+        type: string
+      in: query
+      required: false
+      allowEmptyValue: false
+    direccionOrden:
+      deprecated: false
+      name: Dirección del orden
+      description: |-
+        Se elige entre orden:
+        * ASC -> ASCENDENTE
+        * DES -> DESCENTENTE
+      schema:
+        description: Tipo de orden ascendente o descendente
+        enum:
+          - ASC
+          - DESC
+        type: string
+      in: query
+      required: false
+      allowEmptyValue: false
+      
+  examples:
+    response-http-201:
+      value:
+        type: https://httpstatuses.com/200
+        title: Resource Created
+        status: 201
+        detail: El recurso ha sido creado
+        instance: about:blank
+    response-http-400:
+      value:
+        type: https://httpstatuses.com/400
+        title: Bad Request
+        status: 400
+        detail: La petición realizada es incorrecta
+        instance: about:blank
+    response-http-404:
+      value:
+        type: https://httpstatuses.com/404
+        title: NOT FOUND
+        status: 404
+        detail: El recurso con el vehículo solicitado no se encuentra disponible
+        instance: about:blank
+    response-http-408:
+      value:
+        type: https://httpstatuses.com/408
+        title: REQUEST_TIMEOUT
+        status: 408
+        detail: Se ha perdido la conexión con el servidor
+        instance: about:blank
+    response-http-412:
+      value:
+        type: https://httpstatuses.com/412
+        title: Precondition Failed
+        status: 412
+        detail: HTTP header no coincide con la enviada
+        instance: about:blank     
+    response-http-422:
+      value:
+        type: https://httpstatuses.com/422
+        title: Unprocessable Entity
+        status: 422
+        detail: Validación de parámetros fallida
+        instance: about:blank        
+    response-http-502:
+      value:
+        type: https://httpstatuses.com/502
+        title: INTERNAL SERVER ERROR
+        status: 502
+        detail: Error en el servidor
+        instance: about:blank
+        
+  requestBodies:
+    vehiculoUpdate:
+      description: Actualización de datos de un vehículo
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              matricula:
+                description: Matrícula del vehículo
+                type: string
+              marca:
+                description: Marca del vehículo (mercedes, porche, etc.)
+                type: string
+              modelo:
+                description: Modelo de vehículo
+                type: string
+              anno:
+                format: int32
+                description: anno de fabricación del vehiculo
+                type: integer
+              motor:
+                description: Cilindrada del motor, CV del motor, tipo de motor.
+                type: string
+              clienteID:
+                description: Identificador único del cliente propietario del vehículo
+                type: string
+          example:
+            VIN: MNCLSFE405W491230
+            matricula: XEC4567YX
+            marca: Ford
+            modelo: Mustang
+            anno: 1987
+            motor: V8, 500 CV, gasolina
+            clienteID: qwer1234
+            reparacionUltima: 2021
+            links:
+              listadoVehiculos: 
+                href: https://ejemplolink.com/api/v1/vehiculo
+                rel: listado de todos los vehiculos
+              self:
+                href: https://ejemplolink.com/api/v1/vehiculo/3568
+                rel: posibles acciones con vehiculo
+              
+    VehiculoCreacion:
+      description: Creacion de un recurso tipo vehiculo
+      content:
+        application/json:
+          schema:
+            required:
+              - matricula
+              - marca
+              - modelo
+              - anno
+              - motor
+              - clienteID
+              - VIN
+            type: object
+            properties:
+                matricula:
+                  description: Matrícula del vehículo
+                  type: string
+                marca:
+                  description: Marca del vehículo (mercedes, porche, etc.)
+                  type: string
+                modelo:
+                  description: Modelo de vehículo
+                  type: string
+                anno:
+                  format: int32
+                  description: anno de fabricación del vehiculo
+                  type: integer
+                motor:
+                  description: Cilindrada del motor, CV del motor, tipo de motor.
+                  type: string
+                clienteID:
+                  description: Identificador único del cliente propietario del vehículo
+                  type: string
+          example:
+              VIN: MNCLSFE405W491230
+              matricula: XEC4567YX
+              marca: Ford
+              modelo: Mustang
+              anno: 1987
+              motor: V8, 500 CV, gasolina
+              clienteID: qwer1234
+              reparacionUltima: 2021
+              links:
+                listadoVehiculos: 
+                  href: https://ejemplolink.com/api/v1/vehiculo
+                  rel: listado de todos los vehiculos
+                self:
+                  href: https://ejemplolink.com/api/v1/vehiculo/3568
+                  rel: posibles acciones con vehiculo
+      required: true
+      
+  headers:
+    ETag:
+      schema:
+        pattern: '[0-9a-f]*'
+        type: string
+        example: 123456789qwertyu
+        x-faker: random.uuid
+      description: Entity Tag (identificador único proporcionado para validación de caché)
+    Allow:
+      schema:
+        type: string
+      example: GET|DELETE|PUT|OPTIONS
+      description: |-
+        Lista de métodos HTTP soportados por ETags
+          ----------GET|DELETE|PUT|OPTIONS----------
+    Location:
+      schema:
+        format: uri
+        type: string
+        example: https://www.miurl.com/api/v1/vehiculo/1
+        x-faker: internet.url
+      description: '`URI` del nuevo recurso'

@@ -1,0 +1,69 @@
+# Vehiculo
+title: vehiculo
+description: objeto vehiculo a gestionar
+required:
+   - VIN
+   - matricula
+   - marca 
+   - modelo
+   - motor
+   - clienteID
+type: object
+properties:
+  VIN:
+    description: Identificador único de cada vehículo
+    type: string
+    readOnly: true
+    pattern: '[A-Z0-9]{17}'
+    minLenght: 17
+    maxLenght: 17
+  matricula:
+    description: Matrícula del vehículo
+    type: string
+  marca:
+    description: Marca del vehículo (mercedes, porche, etc.)
+    type: string
+  modelo:
+    description: Modelo de vehículo
+    type: string
+  anno:
+    format: int32
+    description: anno de fabricación del vehiculo
+    type: integer
+  motor:
+    description: Cilindrada del motor, CV del motor, tipo de motor.
+    type: string
+  clienteID:
+    description: Identificador único del cliente propietario del vehículo
+    type: string
+  reparacionUltima:
+    nullable: true
+    format: int32
+    description: anno de la última reparación del vehículo
+    type: integer
+  links:
+    description: Enlaces
+    readOnly: true
+    type: object
+    properties:
+      listadoVehiculos:
+        $ref: './Link.yaml'
+      self:
+        $ref: './Link.yaml'
+example:
+  VIN: MNCLSFE405W491230
+  matricula: XEC4567YX
+  marca: Ford
+  modelo: Mustang
+  anno: 1987
+  motor: V8, 500 CV, gasolina
+  clienteID: qwer1234
+  reparacionUltima: 2021
+  links:
+    listadoVehiculos: 
+      href: https://ejemplolink.com/api/v1/vehiculo
+      rel: listado de todos los vehiculos
+    self:
+      href: https://ejemplolink.com/api/v1/vehiculo/546
+      rel: posibles acciones con vehiculo
+      

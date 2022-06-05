@@ -1,0 +1,17 @@
+# Links:
+description: Enlaces anterior y siguiente página
+title: 'Links'
+type: object
+properties:
+  href:
+     format: uri
+     description: URLs de los enlaces
+     type: string
+     x-faker: internet.url
+  rel:
+     description: Relacion de los enlaces separados por un espacio
+     type: string
+     x-faker: lorem.words
+example:
+  href: https://www.EstoEsUnEjemplo.com/ejemplo/ejemplo2
+  rel: Accion1_vehiculo Accion2_vehiculo
