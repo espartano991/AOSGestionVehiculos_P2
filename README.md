@@ -32,7 +32,7 @@ Para igualar los puertos endpoints de cada imagen, lo que hemos hecho es modific
 Por otra parte, debido a que no tenemos implementada nuestra imagen (vehñiculos) hemos añadido la pseudoimplementacion con swagger. por lo que hemos añadido el backend y frontend de lo mismo direccionándolo al puerto 8000.
 
 - **Servicio 1** (clientes): API para los clientes. No observamos que la API esté implementada ni que tenga una BBDD, por lo que no vemos necesario levantar un contenedor. 
-- **Servicio 2** (vehículos): API para los vehiculos. Levantamos un servicio en la imagen para la BBDD de mongo.Imagen realizada por nosotros.(que no necesita persistencia adicional con contenedor porque ya la lleva incorporada la imagen) 
+- **Servicio 2** (vehículos): API para los vehiculos. Levantamos un servicio en la imagen para la BBDD de mongo.Imagen realizada por nosotros. Debido a la pseudoimplementacion de la openapi por swagger, hemos añadido el swagger en el docker compose para poder levantarla correctamente.
 - **Servicio 3** (trabajos): API para los trabajos. No observamos que la API esté implementada ni que tenga una BBDD, por lo que no vemos necesario levantar un contenedor. 
 - **Servicio 4** (notificaciones): API para las notificaciones. No observamos que la API esté implementada ni que tenga una BBDD, por lo que no vemos necesario levantar un contenedor.
 - **Servicio 5** (facturas): API para las facturas.  No observamos que la API esté implementada ni que tenga una BBDD, por lo que no vemos necesario levantar un contenedor. 
