@@ -8,7 +8,7 @@ _EQUIPO 4:_
 - Francisco Andrés Ferreyra _ franciscoandres.ferreyra@alumnos.upm.es
 ## Consideraciones de diseño y despliegue
 Es necesario tener instalados los siguientes progarmas:
-- Minikuce
+- Minikube
 - docker
 - kubernetes
 ### **_Creación de la imagen para el servicio_**
