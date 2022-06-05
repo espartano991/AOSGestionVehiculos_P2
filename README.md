@@ -7,7 +7,10 @@ _EQUIPO 4:_
 - Manuel Antonio García Frino _ manuel.gfrino@alumnos.upm.es
 - Francisco Andrés Ferreyra _ franciscoandres.ferreyra@alumnos.upm.es
 ## Consideraciones de diseño y despliegue
-
+Es necesario tener instalados los siguientes progarmas:
+- Minikuce
+- docker
+- kubernetes
 ### **_Creación de la imagen para el servicio_**
 En este caso se ha decidido compilar la imagen con una base de `Ubuntu 18.04`, a la que se le instala `OpenJdK`(la API está implementada en Spring mediante la generación de código de Swagger Codegen). Además, para la implementación se hace uso de persistencia con `MongoDB`. Por tanto, se instala también una versión de mongo mediante el Dockefile.
 
